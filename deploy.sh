@@ -8,4 +8,4 @@ cd SimpleApplication_CA/
 #Install dependencies
 npm install
 #Start the application
-pm2 start ./bin/www --name simpleapp env=dev
+pm2 start ./bin/www --name simpleapp --env=dev
