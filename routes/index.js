@@ -4,7 +4,7 @@ var utils = require('../modules/utils')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: "Simple Application" });
+  res.render('index', { title: "Simple Application", helloMsg:undefined });
 });
 
 /* GET home page. */

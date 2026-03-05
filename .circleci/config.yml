@@ -9,6 +9,13 @@ workflows:
             branches:
               only:
                 - main
+      - deploy:
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+            - build
 
 
 # Define the jobs we want to run for this project
@@ -34,3 +41,13 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
+  deploy:
+    steps:
+      - run:
+          name: deploy-application
+          command: |
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS "
+              rm -rf SimpleApplication_CA/;
+              git clone https://github.com/DGGZNCI/SimpleApplication_CA.git;
+              source SimpleApplication_CA/deploy.sh
+            "

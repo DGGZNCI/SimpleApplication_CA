@@ -5,8 +5,8 @@
   </head>
   <body>
     <h1>
-    <%if (helloMsg) { %>
-      <%= helloMsg %>
+    <%if (helloMsg || (typeof helloMsg === 'string' && helloMsg != undefined)) { %>
+      <%= username %>
     <% } %>
     </h1>
 
