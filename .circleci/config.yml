@@ -26,6 +26,7 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
+      - setup_remote_docker
       - run: 
           name: update-npm
           command: 'sudo npm install -g npm@8.1.4'
@@ -41,6 +42,15 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
+      - run:
+          name: docker-login
+          command: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - run:
+          name: Build Docker Image
+          command: docker build -t $IMAGE_NAME:latest .
+      - run:
+          name: Publish Docker Image
+          command: docker push $IMAGE_NAME
   deploy:
     docker:
         - image: circleci/node:10.16.3
@@ -49,6 +59,8 @@ jobs:
           name: deploy-application
           command: |
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS "
+              export SERVER=\"$SERVER\";
+              export PRIVATE_KEY=\"$PRIVATE_KEY\";
               rm -rf SimpleApplication_CA/;
               git clone https://github.com/DGGZNCI/SimpleApplication_CA.git;
               source SimpleApplication_CA/deploy.sh
