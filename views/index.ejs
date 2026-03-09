@@ -2,23 +2,36 @@
 <html>
   <head>
     <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/index.css">
   </head>
   <body>
-    <h1>
-    <%if (helloMsg || (typeof helloMsg === 'string' && helloMsg != undefined)) { %>
-      <%= username %>
-    <% } %>
-    </h1>
+    <nav>
+      <ul>
+        <a href="/">home</a>
+        <a href="/about">about</a>
+        <a href="/contact">contact</a>
+      </ul>
+    </nav>
+    <form action="/hello" method="get">
+      <label>
+        Name:
+        <input class='input' type="text" name="username" required />
+      </label>
+      <label>
+        Age:
+        <input class='input' type="number" name="age" min="0" />
+      </label>
+      <label>
+        Email:
+        <input class='input' type="email" name="email" />
+      </label>
+      <button type="submit">submit</button>
+      <h2>
+        <%if (userdata) { %>
+          <%= userdata %>
+        <% } %>
+      </h2>
+    </form>
 
-    <ul>
-      <a href="/">home</a>
-      <a href="/about">about</a>
-      <a href="/contact">contact</a>
-      <form action="/hello" method="get">
-          <input type="text" name="username" />
-        <br>
-        <button type="submit">submit</button>
-      </form>
-    </ul>
   </body>
 </html>

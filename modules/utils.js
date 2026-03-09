@@ -1,5 +1,9 @@
-function helloUser(username) {
-    return "Hello, " + username;
+function getUserData(username, age, email) {
+   return [
+    `Username: ${username}`,
+    `Age: ${age}`,
+    `Email: ${email}`
+  ].join('\n');
 }
 
-module.exports = {helloUser}
+module.exports = {getUserData}

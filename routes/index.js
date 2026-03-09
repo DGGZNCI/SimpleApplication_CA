@@ -3,17 +3,26 @@ var router = express.Router();
 var utils = require('../modules/utils')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: "Simple Application", helloMsg:undefined });
+router.get('/', function(req, res) {
+  res.render('index', { title: "Simple Application", userdata:undefined });
 });
 
-/* GET home page. */
-router.get('/hello', function(req, res, next) {
-  var {username} = req.query
-  var helloMsg = utils.helloUser(username)
-  res.render('index', { title: 'Simple Application' , helloMsg:helloMsg });
-
+/* GET data from user page. */
+router.get('/hello', function(req, res) {
+  var {username, age, email} = req.query
+  var data = utils.getUserData(username, age, email);
+  console.log(data);
+  res.render('index', { title: 'Simple Application' , userdata:data });
 });
 
+/* GET about page. */
+router.get('/about', function(req, res) {
+  res.render('about', { title: 'About page' });
+});
+
+/* GET contact page. */
+router.get('/contact', function(req, res) {
+  res.render('contact', { title: 'Contact page' });
+});
 
 module.exports = router;
