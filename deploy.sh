@@ -2,7 +2,7 @@
 sudo apt update && sudo apt install nodejs npm
 sudo npm install -g pm2
 #Stop current application running
-pm2 stop example_app
+pm2 stop simpleapp
 #Change directory into folder of the application
 cd SimpleApplication_CA/
 #Install dependencies
